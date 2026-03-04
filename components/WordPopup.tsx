@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { WordSegment } from '../lib/segmenter';
 import { useFlashcardStore } from '../stores/flashcardStore';
+import AudioButton from './AudioButton';
 
 interface Props {
   word: WordSegment;
@@ -49,7 +50,10 @@ export default function WordPopup({ word, onClose }: Props) {
 
               {/* Word display */}
               <View className="items-center mb-6 mt-2">
-                <Text className="text-blue-500 text-lg mb-1">{word.pinyin}</Text>
+                <View className="flex-row items-center gap-2 mb-1">
+                  <Text className="text-blue-500 text-lg">{word.pinyin}</Text>
+                  <AudioButton text={word.word} size="sm" />
+                </View>
                 <Text className="text-6xl font-light mb-3">{word.word}</Text>
                 <Text className="text-gray-700 text-lg text-center px-4">
                   {word.definition || 'No definition available'}

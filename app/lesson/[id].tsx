@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, Stack } from 'expo-router';
 import { useLessonStore } from '../../stores/lessonStore';
 import { segmentText } from '../../lib/segmenter';
 import TappableText from '../../components/TappableText';
+import AudioButton from '../../components/AudioButton';
 
 export default function LessonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -25,8 +26,16 @@ export default function LessonScreen() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <TappableText segments={segments} />
-    </ScrollView>
+    <>
+      <Stack.Screen
+        options={{
+          headerRight: () =>
+            lesson ? <AudioButton text={lesson.originalText} size="lg" /> : null,
+        }}
+      />
+      <ScrollView className="flex-1 bg-white">
+        <TappableText segments={segments} />
+      </ScrollView>
+    </>
   );
 }
